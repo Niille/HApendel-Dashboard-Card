@@ -1827,11 +1827,14 @@ class $66d5822390d71e6e$export$7ded24e6705f9c64 extends (0, $eGUNk.LitElement) {
     }
     getFirstEntity() {
         const data = this.hass?.states[this.config?.entities?.[0] || this.config?.entity];
-        const attrs = data?.attributes;
-        if (data && attrs && $66d5822390d71e6e$var$isDepartureAttrs(attrs)) return [
-            data,
-            attrs
-        ];
+        let attrs = data?.attributes;
+        if (data && attrs && $66d5822390d71e6e$var$isDepartureAttrs(attrs)) {
+            if ($66d5822390d71e6e$var$isHapendel(attrs)) attrs = $66d5822390d71e6e$var$normalizeHapendel(attrs);
+            return [
+                data,
+                attrs
+            ];
+        }
         return [
             undefined,
             undefined
@@ -1861,7 +1864,10 @@ class $66d5822390d71e6e$export$7ded24e6705f9c64 extends (0, $eGUNk.LitElement) {
         })// map entity name to departures and gather all together
         .map((entity)=>{
             const state = this.hass?.states[entity];
-            if ($66d5822390d71e6e$var$isDepartureAttrs(state.attributes)) return state.attributes;
+            if ($66d5822390d71e6e$var$isDepartureAttrs(state.attributes)) {
+                const attrs = state.attributes;
+                return $66d5822390d71e6e$var$isHapendel(attrs) ? $66d5822390d71e6e$var$normalizeHapendel(attrs) : attrs;
+            }
         }).flatMap((attrs)=>attrs.departures)// filter by departure time
         .filter((d)=>{
             if (!this.config?.hide_departed) return true;
@@ -2033,6 +2039,43 @@ const $66d5822390d71e6e$var$isEntityInfoAction = (a)=>a.entityId !== undefined;
 const $66d5822390d71e6e$var$isServiceCallAction = (a)=>a.service !== undefined;
 function $66d5822390d71e6e$var$isDepartureAttrs(item) {
     return item.departures !== undefined;
+}
+function $66d5822390d71e6e$var$isHapendel(attrs) {
+    const first = attrs.departures?.[0];
+    return !!first && typeof first.line === "string";
+}
+function $66d5822390d71e6e$var$normalizeHapendel(attrs) {
+    const typeMap = {
+        "Bus": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).BUS,
+        "Metro": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).METRO,
+        "Tram": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).TRAM,
+        "Train": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).TRAIN,
+        "Ferry": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).FERRY,
+        "Ship": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).SHIP,
+        "Taxi": (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).TAXI
+    };
+    return {
+        ...attrs,
+        departures: attrs.departures.map((d)=>({
+                destination: d.destination,
+                direction: String(d.direction),
+                direction_code: d.direction,
+                state: d.departure,
+                display: d.departure,
+                expected: d.expected,
+                scheduled: d.expected,
+                stop_point: {
+                    name: "",
+                    designation: ""
+                },
+                line: {
+                    id: 0,
+                    designation: d.line,
+                    transport_mode: typeMap[d.type] ?? (0, $829f1babd4ccc0b8$export$6d07abd9f0bba447).BUS,
+                    group_of_lines: d.groupofline ?? ""
+                }
+            }))
+    };
 }
 
 
