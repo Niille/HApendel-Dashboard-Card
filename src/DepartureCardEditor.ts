@@ -42,6 +42,7 @@ export class HASLDepartureCardEditor extends LitElement implements LovelaceCardE
         { name: "show_entity_name", type: "boolean", disabled: haveMultipleEntities },
         { name: "entities", selector: { entity: { multiple: true, filter: [
           { domain: 'sensor', integration: 'hasl3' },
+          { domain: 'sensor', integration: 'hapendel' },
           { domain: 'sensor', integration: 'london_tfl' }
         ]}} },
       ],

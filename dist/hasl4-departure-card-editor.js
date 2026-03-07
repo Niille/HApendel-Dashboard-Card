@@ -94,6 +94,10 @@ class $91eb62869907e39c$export$8d2c87e174389bfd extends (0, $j0ZcV.LitElement) {
                                         },
                                         {
                                             domain: "sensor",
+                                            integration: "hapendel"
+                                        },
+                                        {
+                                            domain: "sensor",
                                             integration: "london_tfl"
                                         }
                                     ]
