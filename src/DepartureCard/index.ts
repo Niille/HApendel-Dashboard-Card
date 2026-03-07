@@ -112,9 +112,10 @@ export class HASLDepartureCard extends LitElement implements LovelaceCard {
 
     private getFirstEntity(): [HassEntity, DepartureAttributes] | [undefined, undefined] {
         const data = this.hass?.states[this.config?.entities?.[0] || this.config?.entity];
-        const attrs = data?.attributes
+        let attrs = data?.attributes
         if (data && attrs && isDepartureAttrs(attrs)) {
-            return [data, attrs]
+            if (isHapendel(attrs)) attrs = normalizeHapendel(attrs)
+            return [data, attrs as DepartureAttributes]
         }
         return [undefined, undefined]
     }
@@ -156,8 +157,10 @@ export class HASLDepartureCard extends LitElement implements LovelaceCard {
             // map entity name to departures and gather all together
             .map(entity => {
                 const state = this.hass?.states[entity]
-                if (isDepartureAttrs(state.attributes))
-                    return state.attributes
+                if (isDepartureAttrs(state.attributes)) {
+                    const attrs = state.attributes
+                    return isHapendel(attrs) ? normalizeHapendel(attrs) : attrs
+                }
             })
             .flatMap(attrs => attrs.departures)
             // filter by departure time
@@ -350,6 +353,42 @@ const isServiceCallAction = (a: ClickAction): a is ServiceCallAction => (a as an
 
 function isDepartureAttrs(item: { [key:string]: any }): item is DepartureAttributes {
     return (item as DepartureAttributes).departures !== undefined
+}
+
+function isHapendel(attrs: DepartureAttributes): boolean {
+    const first = attrs.departures?.[0]
+    return !!first && typeof (first as any).line === 'string'
+}
+
+function normalizeHapendel(attrs: any): DepartureAttributes {
+    const typeMap: { [key: string]: TransportType } = {
+        'Bus': TransportType.BUS,
+        'Metro': TransportType.METRO,
+        'Tram': TransportType.TRAM,
+        'Train': TransportType.TRAIN,
+        'Ferry': TransportType.FERRY,
+        'Ship': TransportType.SHIP,
+        'Taxi': TransportType.TAXI,
+    }
+    return {
+        ...attrs,
+        departures: attrs.departures.map((d: any) => ({
+            destination: d.destination,
+            direction: String(d.direction),
+            direction_code: d.direction,
+            state: d.departure,
+            display: d.departure,
+            expected: d.expected,
+            scheduled: d.expected,
+            stop_point: { name: '', designation: '' },
+            line: {
+                id: 0,
+                designation: d.line,
+                transport_mode: typeMap[d.type] ?? TransportType.BUS,
+                group_of_lines: d.groupofline ?? '',
+            },
+        })),
+    }
 }
 
 declare global {
