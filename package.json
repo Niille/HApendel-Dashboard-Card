@@ -1,7 +1,7 @@
 {
   "name": "hasl-departure-card",
   "version": "3.4.1",
-  "description": "HASL Departure Lovelace Card",
+  "description": "HApendel Departure Lovelace Card",
   "source": "src/index.ts",
   "module": "dist/hasl4-departure-card.js",
   "targets": {

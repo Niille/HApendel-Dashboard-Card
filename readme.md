@@ -1,4 +1,6 @@
-# HASL Departure Lovelace Card
+# HApendel Departure Lovelace Card
+
+> Forked from [NecroKote/lovelace-hasl4-departure-card](https://github.com/NecroKote/lovelace-hasl4-departure-card)
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-orange.svg)](https://github.com/custom-components/hacs)
 [![ha_version](https://img.shields.io/badge/homeassistant-2024.1.0%2B-yellow.svg)](https://www.home-assistant.io)
@@ -27,7 +29,7 @@ resources:
 
 ## Basic setup
 
-In your lovelace dashboard, Edit Dashboard -> Add Card -> Search for 'HASL Departure Card'
+In your lovelace dashboard, Edit Dashboard -> Add Card -> Search for 'HApendel Departure Card'
 
 ## Configuration
 
