@@ -8,11 +8,15 @@
 [![maintained](https://img.shields.io/maintenance/yes/2025.svg)](#)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
-Present departure times from HASL 3.2.0+ Departure sensors.
+Present departure times from HApendel Departure sensors.
 
 Now with deviations!
 
 ![card](/images/dark-card.png)
+
+## HACS Install
+HACS > 3 dot > Custom repository
+Paste this repository and choose Dashbord
 
 ## Manual Installation
 
