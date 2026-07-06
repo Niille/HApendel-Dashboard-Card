@@ -2,15 +2,19 @@ import {css} from 'lit'
 
 const lineColorsStyles = css`
     .line-icon {
-        border-radius: 3px;
-        padding: 3px 3px 0 3px;
+        border-radius: 12px;
+        padding: 2px 8px;
         color: #fff;
-        min-width: 22px;
-        height: 22px;
-        font-weight: 500;
-        display: inline-block;
+        min-width: 28px;
+        height: 20px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 20px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        text-shadow: 1px 1px 2px var(--outline-color);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     }
 
     .bus {
@@ -19,17 +23,17 @@ const lineColorsStyles = css`
     }
 
     .red {
-        background-color: #d71d24;
+        background-color: #DA291C;
     }
     .blue {
-        background-color: #0089ca;
+        background-color: #0072C6;
     }
     .green {
-        background-color: #179d4d;
+        background-color: #009B48;
     }
 
     .train {
-        background-color: #ec619f;
+        background-color: #EC619F;
     }
 
     .tram {
@@ -74,9 +78,21 @@ const departureEntityStyles = css`
 
     .row {
         margin-top: 8px;
-
         display: flex;
         justify-content: space-between;
+    }
+
+    .row.departure {
+        padding: 6px 10px;
+        margin: 0 -10px;
+        border-radius: 8px;
+        align-items: center;
+        transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .row.departure:hover {
+        background-color: var(--hover-color, rgba(255, 255, 255, 0.04));
+        transform: translateX(3px);
     }
 
     .col {
@@ -129,9 +145,14 @@ const departureEntityStyles = css`
     }
 
     .warning-message {
-        color: var(--warning-color);
-        font-size: smaller;
-        text-decoration: unset;
+        display: block;
+        color: var(--warning-color, #ff9800);
+        font-size: 11px;
+        margin-top: 2px;
+        padding: 2px 6px;
+        background-color: rgba(255, 152, 0, 0.1);
+        border-radius: 4px;
+        width: fit-content;
     }
 
     .mr1 {

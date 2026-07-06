@@ -198,7 +198,7 @@ export class HASLDepartureCard extends LitElement implements LovelaceCard {
             if (!attrs) return nothing;
 
             return (this.config.show_entity_name && attrs.friendly_name)
-                ? html`<div class="row name">${attrs.friendly_name}</div`
+                ? html`<div class="row name">${attrs.friendly_name}</div>`
                 : nothing
         };
 

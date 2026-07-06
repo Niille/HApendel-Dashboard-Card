@@ -10,10 +10,10 @@
     }
   },
   "scripts": {
-    "prebuild": "rm -rf dist/*",
-    "build": "NODE_ENV=production parcel build",
+    "prebuild": "node -e \"const fs = require('fs'); fs.rmSync('dist', { recursive: true, force: true }); fs.mkdirSync('dist', { recursive: true });\"",
+    "build": "cross-env NODE_ENV=production parcel build",
     "watch": "parcel watch",
-    "serve": "NODE_ENV=production parcel serve",
+    "serve": "cross-env NODE_ENV=production parcel serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -21,6 +21,7 @@
     "lit": "^3.1.2"
   },
   "devDependencies": {
+    "cross-env": "^10.1.0",
     "custom-card-helpers": "^1.9.0",
     "home-assistant-js-websocket": "^8.0.1",
     "parcel": "^2.12.0",

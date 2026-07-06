@@ -1595,15 +1595,19 @@ parcelRequire("j0ZcV");
 var $j8KxL = parcelRequire("j8KxL");
 const $57faf62096e30446$var$lineColorsStyles = (0, $j8KxL.css)`
     .line-icon {
-        border-radius: 3px;
-        padding: 3px 3px 0 3px;
+        border-radius: 12px;
+        padding: 2px 8px;
         color: #fff;
-        min-width: 22px;
-        height: 22px;
-        font-weight: 500;
-        display: inline-block;
+        min-width: 28px;
+        height: 20px;
+        font-weight: 600;
+        font-size: 11px;
+        line-height: 20px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
-        text-shadow: 1px 1px 2px var(--outline-color);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
     }
 
     .bus {
@@ -1612,17 +1616,17 @@ const $57faf62096e30446$var$lineColorsStyles = (0, $j8KxL.css)`
     }
 
     .red {
-        background-color: #d71d24;
+        background-color: #DA291C;
     }
     .blue {
-        background-color: #0089ca;
+        background-color: #0072C6;
     }
     .green {
-        background-color: #179d4d;
+        background-color: #009B48;
     }
 
     .train {
-        background-color: #ec619f;
+        background-color: #EC619F;
     }
 
     .tram {
@@ -1666,9 +1670,21 @@ const $57faf62096e30446$var$departureEntityStyles = (0, $j8KxL.css)`
 
     .row {
         margin-top: 8px;
-
         display: flex;
         justify-content: space-between;
+    }
+
+    .row.departure {
+        padding: 6px 10px;
+        margin: 0 -10px;
+        border-radius: 8px;
+        align-items: center;
+        transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .row.departure:hover {
+        background-color: var(--hover-color, rgba(255, 255, 255, 0.04));
+        transform: translateX(3px);
     }
 
     .col {
@@ -1721,9 +1737,14 @@ const $57faf62096e30446$var$departureEntityStyles = (0, $j8KxL.css)`
     }
 
     .warning-message {
-        color: var(--warning-color);
-        font-size: smaller;
-        text-decoration: unset;
+        display: block;
+        color: var(--warning-color, #ff9800);
+        font-size: 11px;
+        margin-top: 2px;
+        padding: 2px 6px;
+        background-color: rgba(255, 152, 0, 0.1);
+        border-radius: 4px;
+        width: fit-content;
     }
 
     .mr1 {
@@ -1938,7 +1959,7 @@ class $66d5822390d71e6e$export$7ded24e6705f9c64 extends (0, $eGUNk.LitElement) {
             const renderEntityName = ()=>{
                 const [_, attrs] = this.getFirstEntity();
                 if (!attrs) return 0, $l56HR.nothing;
-                return this.config.show_entity_name && attrs.friendly_name ? (0, $l56HR.html)`<div class="row name">${attrs.friendly_name}</div` : (0, $l56HR.nothing);
+                return this.config.show_entity_name && attrs.friendly_name ? (0, $l56HR.html)`<div class="row name">${attrs.friendly_name}</div>` : (0, $l56HR.nothing);
             };
             const now = new Date();
             const lang = (0, $gjUL4.getLanguage)(this.config?.language);
@@ -2083,7 +2104,7 @@ customElements.define("hasl4-departure-card", (0, $66d5822390d71e6e$export$7ded2
 window.customCards = window.customCards || [];
 window.customCards.push({
     type: "hasl4-departure-card",
-    name: "HASL4 Departure card",
+    name: "HApendel Departure card",
     description: "Show departure times for SL Trafik"
 });
 
